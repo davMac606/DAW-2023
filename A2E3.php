@@ -29,5 +29,5 @@ $op = 3;
 
  }
  $resultado = ($x%2)==0 ? "par" : "ímpar";
- echo $resultado;
+ echo "<br>" . $resultado;
 ?>
