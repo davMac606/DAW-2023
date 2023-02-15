@@ -17,6 +17,10 @@ $outronome = "unicamp";
 echo $nome ."-". $outronome; //concatena, mostra junto
 echo "<br><br>";
 
+
+$nulo = null;
+$vazio = "";
+
 //unset($nome); //remove "limpa" a variavel, para limpar mais de uma usar virgula
 
 if (isset($nome)){ //ve se a variavel esta setada, is set se sim mostra, se nao mostra vazio, vai mostrar como vazia pois deu unset, se colocar !isset se nao esta setada
@@ -40,6 +44,21 @@ $disciplinas = array("bd", "lp", "daw");
 echo $disciplinas[2];
 echo "<br><br>";
 
+
+// constantes ----------------------------------------------------------
+
+
+define("PI", 3.14);
+define("Nome_Aluno", "Maria");
+
+
+
+$resultado = 3 * PI;
+echo $resultado. "<BR><BR>";
+echo "Nome do Aluno:" .Nome_Aluno . "<BR><BR>";
+
+
+//---------------------sUPER VARIAVEIS -------------
 
 
 
