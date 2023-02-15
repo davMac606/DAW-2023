@@ -61,8 +61,13 @@ echo "Nome do Aluno:" .Nome_Aluno . "<BR><BR>";
 //---------------------sUPER VARIAVEIS -------------
 
 
+echo "<br><br>";
 
-
+//echo $_SERVER["SERVER_ADDR"] . "<br>";
+echo $_SERVER["SERVER_NAME"] . "<br>";
+echo $_SERVER["HTTP_USER_AGENT"] . "<br>";
+echo $_SERVER["REMOTE_ADDR"] . "<br>";
+echo $_SERVER["SCRIPT_NAME"] . "<br>";
 
 
 
