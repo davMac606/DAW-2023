@@ -9,15 +9,43 @@ $nome = "Cotil";
 echo $nome;
 echo "<br><br>";
 
-var_dump($nome);
+var_dump($nome); //quantidade de caracteres e tipo da variavel
 echo "<br><br>";
 
 $outronome = "unicamp";
 
-echo $nome ."-". $outronome;
+echo $nome ."-". $outronome; //concatena, mostra junto
 echo "<br><br>";
 
-unset($nome);
+//unset($nome); //remove "limpa" a variavel, para limpar mais de uma usar virgula
+
+if (isset($nome)){ //ve se a variavel esta setada, is set se sim mostra, se nao mostra vazio, vai mostrar como vazia pois deu unset, se colocar !isset se nao esta setada
+    echo $nome;
+    echo "<br><br>";
+
+
+} else{
+    echo "a variavel esta vazia";
+}
+
+$valor = 50.15;
+echo $valor;
+echo "<br><br>";
+
+$aprovado = true;
+echo $aprovado;
+echo "<br><br>";
+
+$disciplinas = array("bd", "lp", "daw");
+echo $disciplinas[2];
+echo "<br><br>";
+
+
+
+
+
+
+
 
 
 ?>
