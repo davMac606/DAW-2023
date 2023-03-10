@@ -32,8 +32,23 @@ if ($_SERVER["REQUEST_METHOD"] === 'POST') {
     
         $msgN2= "A nota 2 é obrigatória";
     }
+    elseif ($n1 > 10) {
+        $msgN1 = "A nota não pode ser superior a 10";
+    }
+    elseif ($n2 > 10) {
+        $msgN2 = "A nota não pode ser superior a 10";
+    }
+    elseif ($n1 < 0) {
+        $msgN1 = "A nota não pode ser negativa";
+    }
+    else if ($n2 < 0) {
+        $msgN2 = "A nota não pode ser negativa";
+    }
+    
+    
     
     else{
+        
     $media = calcMedia($n1,$n2)/2;
     echo "Media:" . $media . "<br>";
     
@@ -43,6 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] === 'POST') {
     
         echo "<span id= 'reprovado'> reprovado! </span>";
     }
+    
     
    }
    
