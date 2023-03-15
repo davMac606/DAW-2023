@@ -1,20 +1,20 @@
 <?php 
 if ($_SERVER["REQUEST_METHOD"] === 'POST') {
 
-    function codificar() {
+    function codificar($string) {
 
-        $string = $_POST["teste"];
-
+ 
         $codificada = base64_encode($string);
-        
-        echo "Resultado da codificação: " . $codificada . "<br>";
-        
-        $stringOr = base64_decode($codificada);
-        
-        echo "Resultado da decodificação: " . $stringOr . "<br>";
-        
+
+        if (!empty($string)) {
+            echo $codificada;
+        }
+         
+       return $codificada;
     }
-  
+
+    $string = $_POST["teste"];
+
 
 }
 
@@ -25,9 +25,13 @@ if ($_SERVER["REQUEST_METHOD"] === 'POST') {
        
     </head>
     <body>
+        <p id="teste1"></p>
         <form action="exsenha.php" method=post>
-        <input type="text" name="teste" id="teste">
+        <input type="text" name="teste" id="teste" onblur = "isEmpty()">
+<br><br>
+        <input type="submit" name="submit" value="Submit">
 </form>
+
         <script>
             function makeid(length) {
     let result = '';
@@ -45,8 +49,14 @@ if ($_SERVER["REQUEST_METHOD"] === 'POST') {
     return result;
 
 }
+function IsEmpty() {
 
-document.getElementById('teste').innerHTML = (makeid(10));  
+if (document.form.question.value == "") {
+  alert("empty");
+}
+return;
+}
+document.getElementById('teste').value = (makeid(10));  
 </script>
 
     </body>
