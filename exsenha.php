@@ -1,33 +1,39 @@
 <?php 
 if ($_SERVER["REQUEST_METHOD"] === 'POST') {
 
-    function codificar($string) {
-
+    $string = $_POST["teste"];
  
         $codificada = base64_encode($string);
 
-        if (!empty($string)) {
-            echo $codificada;
-        }
-         
-       return $codificada;
+
+        $salt = "fknhuge";
+
+        $codificada = $codificada . $salt;
+
+        $codificada2 = md5($codificada); 
+
+
+
     }
 
-    $string = $_POST["teste"];
+   
 
-
-}
 
 ?>
 
 <html>
     <head>
-       
+       <style>
+        #aviso {
+            color: red;
+        }
+        </style>
     </head>
     <body>
         <p id="teste1"></p>
         <form action="exsenha.php" method=post>
         <input type="text" name="teste" id="teste" onblur = "isEmpty()">
+        <span id="aviso"><?php echo $codificada2 ?> </span>
 <br><br>
         <input type="submit" name="submit" value="Submit">
 </form>
@@ -48,13 +54,6 @@ if ($_SERVER["REQUEST_METHOD"] === 'POST') {
 
     return result;
 
-}
-function IsEmpty() {
-
-if (document.form.question.value == "") {
-  alert("empty");
-}
-return;
 }
 document.getElementById('teste').value = (makeid(10));  
 </script>
