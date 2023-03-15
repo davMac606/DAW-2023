@@ -6,12 +6,13 @@ if ($_SERVER["REQUEST_METHOD"] === 'POST') {
         $codificada = base64_encode($string);
 
 
-        $salt = "fknhuge";
+        $salt = "fknhugeagain";
 
         $codificada = $codificada . $salt;
 
-        $codificada2 = md5($codificada); 
 
+
+        $codificada2 = password_hash($codificada, PASSWORD_DEFAULT);
 
 
     }
