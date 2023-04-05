@@ -7,4 +7,5 @@
 
     $texto = new DateTime('+1 month');
     echo "<br>" . $texto->format('d-m-Y H:i:s');
+    
 ?>
