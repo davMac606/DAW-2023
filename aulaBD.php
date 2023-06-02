@@ -1,20 +1,20 @@
 <?php
-if($SERVER["REQUEST_METHOD"] === 'POST') {
+if($_SERVER["REQUEST_METHOD"] === 'POST') {
     include("conexaoBD.php");
 
     if (isset($_POST["raBusca"]) && ($_POST["raBusca"] != "")) {
         $raBusca = $_POST["raBusca"];
-        $smt = $pdo->prepare("SELECT * FROM alunoPHP WHERE ra = :ra");
-        $smt->bindParam(':ra', $raBusca);
+        $smt1 = $pdo->prepare("SELECT * FROM alunoPHP WHERE ra = :ra");
+        $smt1->bindParam(':ra', $raBusca);
     
     } else {
-        $smt = $pdo->prepare("SELECT * FROM alunoPHP order by curso, nome");
+        $smt1 = $pdo->prepare("SELECT * FROM alunoPHP order by curso, nome");
 
     }
 
     try{
 
-        $smt->execute();
+        $smt1->execute();
 
         echo "<form method='post'>";
         echo "<table border='1px'>";
@@ -25,17 +25,38 @@ if($SERVER["REQUEST_METHOD"] === 'POST') {
         echo "<th>Curso</th>";
         echo "</tr>";
 
-        while ($row = $smt->fetch()) {
+        while ($row = $smt1->fetch()) {
             echo "<tr>";
-            echo "<td><input type='radio' name='ra' value='" . $row['ra'] . "'></td>";
+            echo "<td><input type='radio' name='raExc' value='" . $row['ra'] . "'></td>";
             echo "<td>" . $row['ra'] . "</td>";
             echo "<td>" . $row['nome'] . "</td>";
             echo "<td>" . $row['curso'] . "</td>";
             echo "</tr>";
+
         }
 
+    } catch (PDOException $ex) {
+        echo 'ERROR: ' . $ex->getMessage();
     }
+    $pdo1 = null;
 }
+    if ($_SERVER["REQUEST_METHOD"] === "POST") {
+        if (!isset($_POST["raExc"])) {
+            echo "Selecione o aluno a ser excluído!";
+        } else {
+            $raExc = $_POST["raExc"];
+
+            try {
+                include("conexaoBD.php");
+                $smt2 = $pdo2->prepare("DELETE * FROM alunoPHP WHERE ra = :raExc");
+                $smt2->bindParam(':raExc', $raExc);
+
+                echo $smt2->rowCount() . " aluno com RA $raExc foi removido!";
+            } catch (PDOException $ex) {
+                echo 'EROR: ' . $ex->getMessage();
+            }
+        }
+    }
 
 
 
@@ -91,7 +112,7 @@ if ($_SERVER["REQUEST_METHOD"] === 'POST') {
     <h2>Consulta de Alunos</h2>
     <div>
         <form method="post">
-            <input type="text" name="raBusca" id="raBusca" placeholder="Insira o RA a ser buscado" size="10" required><br><br>
+            <input type="text" name="raBusca" id="raBusca" placeholder="Insira o RA a ser buscado" size="10"><br><br>
             <input type="submit" value="Consultar">
         </form>
     <hr>
@@ -99,17 +120,22 @@ if ($_SERVER["REQUEST_METHOD"] === 'POST') {
 
     <div>
         <form method="post">
-            <input type="text" name="ra" id="ra" placeholder="Insira seu RA" size="10" required><br><br>
+            <input type="text" name="ra" id="ra" placeholder="Insira seu RA" size="10"><br><br>
             
 
-            <input type="text" name="nome" id="nome" placeholder="Insira seu nome" required><br><br>
+            <input type="text" name="nome" id="nome" placeholder="Insira seu nome"><br><br>
 
 
-            <input type="text" name="curso" id="curso" placeholder="Insira seu curso" required><br><br>
+            <input type="text" name="curso" id="curso" placeholder="Insira seu curso"><br><br>
 
 
             <input type="submit" value="Enviar">
         </form>
     </div>
-</body>
+    <hr>
+    <h2>Exclusão de Alunos</h2>
+    <form method="post">
+        <input type="submit" value="Excluir" name="exclusao">
+    </form>
+</body> 
 </html>
