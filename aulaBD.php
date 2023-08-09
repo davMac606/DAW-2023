@@ -23,6 +23,7 @@ if($_SERVER["REQUEST_METHOD"] === 'POST') {
         echo "<th>RA</th>";
         echo "<th>Nome</th>";
         echo "<th>Curso</th>";
+        echo "<th>Foto</th>";
         echo "</tr>";
 
         while ($row = $smt1->fetch()) {
@@ -31,6 +32,11 @@ if($_SERVER["REQUEST_METHOD"] === 'POST') {
             echo "<td>" . $row['ra'] . "</td>";
             echo "<td>" . $row['nome'] . "</td>";
             echo "<td>" . $row['curso'] . "</td>";
+            if ($row["foto"] == null) {
+                echo "<td align='center'>-</td>";
+            } else {
+                echo "<td align='center'><img src='data:image;base64, ".base64_encode($row["foto"]). "' width='50px' height='50px'></td>";
+            }
             echo "</tr>";
 
         }
@@ -40,67 +46,15 @@ if($_SERVER["REQUEST_METHOD"] === 'POST') {
     }
     $pdo1 = null;
 }
-    if ($_SERVER["REQUEST_METHOD"] === "POST") {
-        if (!isset($_POST["raExc"])) {
-            echo "Selecione o aluno a ser excluído!";
-        } else {
-            $raExc = $_POST["raExc"];
-
-            try {
-                include("conexaoBD.php");
-                $smt2 = $pdo2->prepare("DELETE * FROM alunoPHP WHERE ra = :raExc");
-                $smt2->bindParam(':raExc', $raExc);
-
-                echo $smt2->rowCount() . " aluno com RA $raExc foi removido!";
-            } catch (PDOException $ex) {
-                echo 'EROR: ' . $ex->getMessage();
-            }
-        }
-    }
-
-
-
-
-
-
-
-
-
-if ($_SERVER["REQUEST_METHOD"] === 'POST') {
-    try {
-        $ra = $_POST["ra"];
-        $nome = $_POST["nome"];
-        $curso = $_POST["curso"];
-
-        if ((trim($ra) == "") || (trim($nome) == "")) {
-            echo "<span id='warning'>Os campos são obrigatórios!</span>";
-        } else {
-            include("conexaoBD.php");
-            $smt = $pdo->prepare("SELECT * FROM alunoPHP WHERE ra = :ra");
-            $smt->bindParam(':ra', $ra);
-            $smt->execute();
-
-            $rows = $smt->rowCount();
-
-            if ($rows <= 0 ) {
-                $smt = $pdo->prepare("INSERT INTO alunoPHP (ra, nome, curso) values(:ra, :nome, :curso)");
-                $smt->bindParam(':ra', $ra);
-                $smt->bindParam(':nome', $nome);
-                $smt->bindParam(':curso', $curso);
-                $smt->execute();
-
-                echo "<span id='success'>Aluno cadastrado!</span>";
-            } else {
-                echo "<span id='errors'>Aluno já existente!</span>";
-            }
-        }
-    } catch (PDOException $ex) {
-        echo 'ERROR: ' . $ex->getMessage();
-    }
-    $pdo = null;
-}
-
 ?>
+
+
+
+
+
+
+
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -111,7 +65,7 @@ if ($_SERVER["REQUEST_METHOD"] === 'POST') {
 <body>
     <h2>Consulta de Alunos</h2>
     <div>
-        <form method="post">
+        <form method="post" action="consulta.php" enctype="multipart/form-data">
             <input type="text" name="raBusca" id="raBusca" placeholder="Insira o RA a ser buscado" size="10"><br><br>
             <input type="submit" value="Consultar">
         </form>
@@ -119,7 +73,7 @@ if ($_SERVER["REQUEST_METHOD"] === 'POST') {
     <h2>Cadastro de Alunos</h2>
 
     <div>
-        <form method="post">
+        <form method="post" action="insertaluno.php" enctype="multipart/form-data">
             <input type="text" name="ra" id="ra" placeholder="Insira seu RA" size="10"><br><br>
             
 
@@ -128,13 +82,14 @@ if ($_SERVER["REQUEST_METHOD"] === 'POST') {
 
             <input type="text" name="curso" id="curso" placeholder="Insira seu curso"><br><br>
 
+            <input type="file" name="foto" id="foto" accept="image/gif, image/png, image/jpg, image/jpeg"><a>Envie uma foto.</a><br><br>
 
             <input type="submit" value="Enviar">
         </form>
     </div>
     <hr>
     <h2>Exclusão de Alunos</h2>
-    <form method="post">
+    <form method="post" action="deletealuno.php" enctype="multipart/form-data">
         <input type="submit" value="Excluir" name="exclusao">
     </form>
 </body> 
