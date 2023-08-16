@@ -72,7 +72,7 @@
             $ra = $_POST["ra"];
             $nome = $_POST["nome"];
             $curso = $_POST["curso"];
-            $foto = $_POST["foto"];
+            $foto = $_FILES["foto"];
 
             if ((trim($ra) == "") || (trim($nome) == "")) {
                 echo "<span id='warning'>RA e nome são obrigatórios!</span>";
