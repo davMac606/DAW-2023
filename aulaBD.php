@@ -72,21 +72,7 @@ if($_SERVER["REQUEST_METHOD"] === 'POST') {
     <hr>
     <h2>Cadastro de Alunos</h2>
 
-    <div>
-        <form method="post" action="insertaluno.php" enctype="multipart/form-data">
-            <input type="text" name="ra" id="ra" placeholder="Insira seu RA" size="10"><br><br>
-            
-
-            <input type="text" name="nome" id="nome" placeholder="Insira seu nome"><br><br>
-
-
-            <input type="text" name="curso" id="curso" placeholder="Insira seu curso"><br><br>
-
-            <input type="file" name="foto" id="foto" accept="image/gif, image/png, image/jpg, image/jpeg"><a>Envie uma foto.</a><br><br>
-
-            <input type="submit" value="Enviar">
-        </form>
-    </div>
+    
     <hr>
     <h2>Exclusão de Alunos</h2>
     <form method="post" action="deletealuno.php" enctype="multipart/form-data">

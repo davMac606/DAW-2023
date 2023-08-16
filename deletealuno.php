@@ -1,20 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CRUD - Controle de alunos</title>
+</head>
+
+<body>
+
+<a href="index.html">Home</a> | <a href="consulta.php">Consulta</a>
+<hr>
+
+<h2>Exclusão de Alunos</h2>
+
+</body>
+</html>
+
 <?php
-    if ($_SERVER["REQUEST_METHOD"] === "POST") {
-        if (!isset($_POST["raExc"])) {
-            echo "Selecione o aluno a ser excluído!";
-        } else {
-            $raExc = $_POST["raExc"];
 
-            try {
-                include("conexaoBD.php");
-                $smt2 = $pdo2->prepare("DELETE * FROM alunoPHP WHERE ra = :raExc");
-                $smt2->bindParam(':raExc', $raExc);
-                $smt2-> execute();
+include("conexaoBD.php");
 
-                echo $smt2->rowCount() . " aluno com RA $raExc foi removido!";
-            } catch (PDOException $ex) {
-                echo 'EROR: ' . $ex->getMessage();
-            }
-        }
+//if (!isset($_POST["raAluno"])) {
+if (!isset($_GET["raAluno"])) {
+    echo "Selecione o aluno a ser excluído!";
+} else {
+    //$ra = $_POST["raAluno"];
+    $ra = $_GET["raAluno"];
+
+    try {
+        $stmt = $pdo->prepare('DELETE FROM alunos WHERE ra = :ra');
+        $stmt->bindParam(':ra', $ra);
+        $stmt->execute();
+
+        echo $stmt->rowCount() . " aluno de RA $ra removido!";
+
+    } catch (PDOException $e) {
+        echo 'Error: ' . $e->getMessage();
     }
-    ?>
+
+    $pdo = null;
+}
+
+?>
