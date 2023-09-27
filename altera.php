@@ -47,6 +47,8 @@
     }
 
     $pdo = null;
+
+    echo "<form method='post'"
 ?>
 </body>
 </html>
