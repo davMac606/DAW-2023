@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Validation</title>
+</head>
+
+<body>
+    <script>
+        function store() {
+            if (document.getElementById("ra").value == "") {
+                alert("RA inválido.");
+                return;
+            } else {
+                var ra = document.getElementById("ra").value;
+                sessionStorage.setItem("ra", ra);
+                alert("RA armazenado com sucesso.");
+            }
+
+        }
+
+        function remove() {
+            sessionStorage.removeItem("ra");
+            alert("RA removido com sucesso.");
+        }
+
+        function read(){
+            var ra = sessionStorage.getItem("ra");
+            if (ra != null) {
+                document.getElementById("ra").value = ra;
+            alert("RA armazenado: " + ra);
+            } else {
+                alert("RA não encontrado.");
+            }
+            
+        }
+    </script>
+    <h1>Session Storage</h1>
+    <hr>
+    <form method="post">
+        <label for="ra">RA:</label>
+        <input type="text" required name="ra" id="ra" maxlength=6>
+        <input type="submit" value="Login" onclick=store()>
+    </form>
+    <hr>
+    <input type="button" name="read" id="read" value="Ler RA" onclick=read()>
+    <input type="button" name="clear" id="clear" value="Limpar" onclick=remove()>
+</body>
+
+</html>
