@@ -11,22 +11,14 @@
             localStorage.removeItem("login");
             
         }
-        function stop() {
-            clearInterval(interval);
-        }
-        function timer() {
-            var date = new Date();
-            document.getElementById("relogio").textContent = date.toLocaleDateString();
-        }
+
         function identificaAluno() {
-            
-            var interval = setInterval(fon, 1000);
             var timer = setTimeout(msgEnding, 5000);
             
             var login = localStorage.getItem("login");
 
             if (login != null) {
-                document.getElementById("aluno").innerText = login;
+                document.getElementById("login").innerText = login;
             } else {
                 window.location.href = "login.html";
             }
@@ -37,7 +29,7 @@
 
 <body onload="identificaAluno()">
     <h1>Bem-vindo.</h1>
-    Olá <span id="aluno"></span>.
+    Olá <span id="login"></span>.
 </body>
 
 </html>
