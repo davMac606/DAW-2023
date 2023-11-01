@@ -11,8 +11,18 @@
             localStorage.removeItem("login");
             
         }
+        function stop() {
+            clearInterval(interval);
+        }
+        function timer() {
+            var date = new Date();
+            document.getElementById("relogio").textContent = date.toLocaleDateString();
+        }
         function identificaAluno() {
+            
+            var interval = setInterval(fon, 1000);
             var timer = setTimeout(msgEnding, 5000);
+            
             var login = localStorage.getItem("login");
 
             if (login != null) {
